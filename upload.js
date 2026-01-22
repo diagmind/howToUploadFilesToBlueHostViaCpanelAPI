@@ -102,7 +102,8 @@ async function uploadFiles(remoteDir, localFiles) {
   for (const filePath of localFiles) {
     const buffer = await fs.readFile(filePath);
     const fileName = path.basename(filePath);
-    form.append(`file-${index}`, new Blob([buffer]), fileName);
+    const file = new File([buffer], fileName, { type: 'text/plain' });
+    form.append(`file-${index}`, file);
     console.log(`  - Adding file: ${fileName}`);
     index += 1;
   }
