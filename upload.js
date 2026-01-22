@@ -30,7 +30,9 @@ await loadEnv();
 const CPANEL_USER = process.env.USERNAME;
 const CPANEL_HOST = `https://${process.env.SUBDOMAINNAME}:2083`;
 const AUTH_TOKEN = process.env.BLUEHOSTAPI;
-const PUBLIC_HTML_PATH = `/home2/${CPANEL_USER}/public_html`;
+// Allow overriding the home directory base path (default: /home2/)
+const HOME_BASE = process.env.HOME_BASE || '/home2';
+const PUBLIC_HTML_PATH = `${HOME_BASE}/${CPANEL_USER}/public_html`;
 
 // Validate configuration
 if (!CPANEL_USER || !process.env.SUBDOMAINNAME || !AUTH_TOKEN) {

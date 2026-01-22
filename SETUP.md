@@ -11,6 +11,7 @@
    - `USERNAME`: Your cPanel username
    - `SUBDOMAINNAME`: Your BlueHost subdomain (e.g., `your-subdomain.mybluehost.me`)
    - `BLUEHOSTAPI`: Your cPanel API token
+   - `HOME_BASE` (optional): Home directory base path (default: `/home2`). Different BlueHost plans may use `/home/`, `/home2/`, `/home3/`, etc.
 
 3. **Run the upload script**
    ```bash
