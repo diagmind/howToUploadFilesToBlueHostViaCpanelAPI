@@ -198,3 +198,46 @@ async function deleteRemoteDirectory(dirPath) {
 ## See Also
 
 - [cPanel UAPI Documentation](https://api.docs.cpanel.net/cpanel/introduction/)
+
+---
+
+## Example Usage
+
+This repository includes a working example script (`upload.js`) and GitHub Actions workflow for automated file uploads.
+
+### Local Usage
+
+1. Copy `.env.example` to `.env` and fill in your credentials:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` with your BlueHost credentials:
+   ```
+   USERNAME=your_cpanel_username
+   SUBDOMAINNAME=your-subdomain
+   BLUEHOSTAPI=your_api_token_here
+   ```
+
+3. Run the upload script:
+   ```bash
+   npm run upload
+   ```
+
+The script will:
+- Create a file `YYYYMMDDHHMMSS.txt` with "hello world" in `public_html/`
+- Create a directory `YYYYMMDDHHMMSS_test_dir/` in `public_html/`
+- Create a file `YYYYMMDDHHMMSS_file2.txt` with "hello world" inside the directory
+
+### GitHub Actions Usage
+
+The repository includes a workflow named "test upload" that can be manually triggered.
+
+1. Add secrets to your repository:
+   - `USERNAME` - Your cPanel username
+   - `SUBDOMAINNAME` - Your BlueHost subdomain (e.g., `your-subdomain` without `.mybluehost.me`)
+   - `BLUEHOSTAPI` - Your cPanel API token
+
+2. Go to Actions → "test upload" → "Run workflow"
+
+3. The workflow will automatically run the upload script with the same behavior as local usage.

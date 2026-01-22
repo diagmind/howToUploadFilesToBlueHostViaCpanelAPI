@@ -1,0 +1,16 @@
+{
+  "name": "bluehost-cpanel-upload",
+  "version": "1.0.0",
+  "description": "Upload files to BlueHost via cPanel API",
+  "main": "upload.js",
+  "type": "module",
+  "scripts": {
+    "upload": "node upload.js"
+  },
+  "keywords": ["bluehost", "cpanel", "upload"],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
