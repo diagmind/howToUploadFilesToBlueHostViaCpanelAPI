@@ -9,7 +9,7 @@
 
 2. **Configure your BlueHost credentials** in `.env`:
    - `USERNAME`: Your cPanel username
-   - `SUBDOMAINNAME`: Your BlueHost subdomain (e.g., `your-subdomain.mybluehost.me`)
+   - `SUBDOMAINNAME`: Your BlueHost subdomain (just the subdomain part, e.g., `your-subdomain` without `.mybluehost.me`)
    - `BLUEHOSTAPI`: Your cPanel API token
    - `HOME_BASE` (optional): Home directory base path (default: `/home2`). Different BlueHost plans may use `/home/`, `/home2/`, `/home3/`, etc.
 
@@ -27,7 +27,7 @@ To use the automated workflow, you need to add three secrets to your GitHub repo
 
 2. **Add the following repository secrets**:
    - `USERNAME`: Your cPanel username
-   - `SUBDOMAINNAME`: Your BlueHost subdomain (without `https://` and `:2083`)
+   - `SUBDOMAINNAME`: Your BlueHost subdomain (just the subdomain part, e.g., `your-subdomain` without `.mybluehost.me`)
    - `BLUEHOSTAPI`: Your cPanel API token
 
 3. **Trigger the workflow**:

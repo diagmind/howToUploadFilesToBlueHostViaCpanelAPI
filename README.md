@@ -215,7 +215,7 @@ This repository includes a working example script (`upload.js`) and GitHub Actio
 2. Edit `.env` with your BlueHost credentials:
    ```
    USERNAME=your_cpanel_username
-   SUBDOMAINNAME=your-subdomain.mybluehost.me
+   SUBDOMAINNAME=your-subdomain
    BLUEHOSTAPI=your_api_token_here
    ```
 
@@ -235,7 +235,7 @@ The repository includes a workflow named "test upload" that can be manually trig
 
 1. Add secrets to your repository:
    - `USERNAME` - Your cPanel username
-   - `SUBDOMAINNAME` - Your BlueHost subdomain (e.g., `your-subdomain.mybluehost.me`)
+   - `SUBDOMAINNAME` - Your BlueHost subdomain (e.g., `your-subdomain` without `.mybluehost.me`)
    - `BLUEHOSTAPI` - Your cPanel API token
 
 2. Go to Actions → "test upload" → "Run workflow"

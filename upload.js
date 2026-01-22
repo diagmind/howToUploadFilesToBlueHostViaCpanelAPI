@@ -28,7 +28,7 @@ await loadEnv();
 
 // Configuration from environment variables
 const CPANEL_USER = process.env.USERNAME;
-const CPANEL_HOST = `https://${process.env.SUBDOMAINNAME}:2083`;
+const CPANEL_HOST = `https://${process.env.SUBDOMAINNAME}.mybluehost.me:2083`;
 const AUTH_TOKEN = process.env.BLUEHOSTAPI;
 // Allow overriding the home directory base path (default: /home2/)
 const HOME_BASE = process.env.HOME_BASE || '/home2';
