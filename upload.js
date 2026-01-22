@@ -71,10 +71,23 @@ async function ensureRemoteDirectory(parentAbsolutePath, dirName) {
     permissions: '0755',
   });
 
-  const response = await fetch(
-    `${CPANEL_HOST}/json-api/cpanel?${params.toString()}`,
-    { method: 'GET', headers }
-  );
+  let response;
+  try {
+    response = await fetch(
+      `${CPANEL_HOST}/json-api/cpanel?${params.toString()}`,
+      { method: 'GET', headers }
+    );
+  } catch (fetchError) {
+    console.error(`✗ Network error during fetch:`);
+    console.error(`  URL: ${CPANEL_HOST}/json-api/cpanel`);
+    console.error(`  Error: ${fetchError.message}`);
+    throw new Error(`Fetch failed: ${fetchError.message}`);
+  }
+
+  if (!response.ok) {
+    console.error(`✗ HTTP error: ${response.status} ${response.statusText}`);
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
 
   const payload = await response.json();
   
@@ -102,15 +115,31 @@ async function uploadFiles(remoteDir, localFiles) {
   for (const filePath of localFiles) {
     const buffer = await fs.readFile(filePath);
     const fileName = path.basename(filePath);
-    form.append(`file-${index}`, new Blob([buffer]), fileName);
+    const file = new File([buffer], fileName, { type: 'application/octet-stream' });
+    form.append(`file-${index}`, file);
     console.log(`  - Adding file: ${fileName}`);
     index += 1;
   }
 
-  const response = await fetch(
-    `${CPANEL_HOST}/execute/Fileman/upload_files`,
-    { method: 'POST', headers, body: form }
-  );
+  let response;
+  try {
+    response = await fetch(
+      `${CPANEL_HOST}/execute/Fileman/upload_files`,
+      { method: 'POST', headers, body: form }
+    );
+  } catch (fetchError) {
+    console.error(`✗ Network error during fetch:`);
+    console.error(`  URL: ${CPANEL_HOST}/execute/Fileman/upload_files`);
+    console.error(`  Error: ${fetchError.message}`);
+    throw new Error(`Fetch failed: ${fetchError.message}`);
+  }
+
+  if (!response.ok) {
+    console.error(`✗ HTTP error: ${response.status} ${response.statusText}`);
+    const text = await response.text().catch(() => 'Unable to read response');
+    console.error(`  Response: ${text}`);
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
 
   const payload = await response.json();
   
