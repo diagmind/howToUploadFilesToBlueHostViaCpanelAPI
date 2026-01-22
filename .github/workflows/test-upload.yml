@@ -1,0 +1,43 @@
+name: test upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual upload'
+        required: false
+        default: 'Manual test upload'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Upload files to BlueHost
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          SUBDOMAINNAME: ${{ secrets.SUBDOMAINNAME }}
+          BLUEHOSTAPI: ${{ secrets.BLUEHOSTAPI }}
+        run: |
+          echo "Starting upload process..."
+          node upload.js
+          echo "Upload completed successfully!"
+      
+      - name: Summary
+        run: |
+          echo "## Upload Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Files uploaded to BlueHost via cPanel API" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Timestamp-based files created:" >> $GITHUB_STEP_SUMMARY
+          echo "- YYYYMMDDHHMMSS.txt in public_html" >> $GITHUB_STEP_SUMMARY
+          echo "- YYYYMMDDHHMMSS_test_dir/ directory" >> $GITHUB_STEP_SUMMARY
+          echo "- YYYYMMDDHHMMSS_file2.txt in the directory" >> $GITHUB_STEP_SUMMARY
